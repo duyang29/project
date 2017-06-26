@@ -27,7 +27,7 @@ import butterknife.ButterKnife;
  * @date 2016/11/22 18:12
  */
 
-public class MessageFragment extends BaseFragment implements RemetoRepoCallbackV2<List<MessageItemEntity>> {
+public class MessageFragment extends BaseFragment implements PullToRefreshRecyclerView.PullToRefreshRecyclerViewListener, RemetoRepoCallbackV2<List<MessageItemEntity>> {
 
     @BindView(R.id.msg_recyclerView)
     PullToRefreshRecyclerView mRecyclerView;
@@ -63,10 +63,21 @@ public class MessageFragment extends BaseFragment implements RemetoRepoCallbackV
         super.onActivityCreated(savedInstanceState);
         mAdapter = new MessageContentAdapter(getActivity());
         mRecyclerView.setRecyclerViewAdapter(mAdapter);
+        mRecyclerView.setPullToRefreshListener(this);
 
+        mRecyclerView.startUpRefresh();
+    }
+
+    @Override
+    public void onDownRefresh() {
         String useNo = DataApplication.getInstance().getUserInfoEntity().getUserNo();
         mMessageRepo.queryTuiMessages(useNo, this);     // 获取系统消息列表
         mMessageRepo.queryBusMessages(useNo, this);     // 获取商家消息列表
+    }
+
+    @Override
+    public void onPullRefresh() {
+
     }
 
     @Override
@@ -77,6 +88,7 @@ public class MessageFragment extends BaseFragment implements RemetoRepoCallbackV
     @Override
     public void onSuccess(List<MessageItemEntity> data) {
         if (data == null) {
+//            mRecyclerView.setEmptyTextViewVisiblity(View.VISIBLE);
             return;
         }
         mAdapter.addItems(data, 0);
@@ -84,11 +96,11 @@ public class MessageFragment extends BaseFragment implements RemetoRepoCallbackV
 
     @Override
     public void onFailure(int code, String msg) {
-
+//        mRecyclerView.setEmptyTextViewVisiblity(View.VISIBLE);
     }
 
     @Override
     public void onFinish() {
-
+        mRecyclerView.closeDownRefresh();
     }
 }

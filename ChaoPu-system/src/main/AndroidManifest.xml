@@ -71,6 +71,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/JK.SwipeBack.Transparent.Theme" />
 
+        <activity
+            android:name=".module.dynamic.DynamicDetailsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/JK.SwipeBack.Transparent.Theme" />
+
         <!-- 高德地图配制[吴和志] -->
         <meta-data
             android:name="com.amap.api.v2.apikey"

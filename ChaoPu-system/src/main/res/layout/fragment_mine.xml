@@ -112,7 +112,8 @@
             android:layout_height="match_parent"
             android:layout_marginBottom="5dp"
             android:layout_marginTop="5dp"
-            android:background="#F5F5F5" />
+            android:background="#F5F5F5"
+            android:visibility="gone" />
 
 
         <TextView
@@ -126,7 +127,8 @@
             android:paddingTop="20dp"
             android:text="足轨"
             android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:visibility="gone" />
 
     </LinearLayout>
 

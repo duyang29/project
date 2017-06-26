@@ -100,8 +100,8 @@ public class MessageDetailActivity extends BaseActivity implements PullToRefresh
     public void onFailure(int code, String msg) {
         if (code == 404) {
             if (mAdapter.getItemCount() <= 0) {
-                mRecyclerView.setVisibility(View.GONE);
-//                emptyTextView.setVisibility(View.VISIBLE);
+//                mRecyclerView.setVisibility(View.GONE);
+                mRecyclerView.setEmptyTextViewVisiblity(View.VISIBLE);
             } else {
                 mRecyclerView.onLoadMoreFinish();
             }

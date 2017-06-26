@@ -1,8 +1,7 @@
 package com.easydear.user.module.cards.data.source;
 
 import com.easydear.user.DataApplication;
-import com.easydear.user.api.ChaoPuRetrofitManamer;
-import com.easydear.user.api.ResponeEntity;
+import com.easydear.user.api.ResponseEntity;
 import com.easydear.user.api.RetrofitManager;
 import com.easydear.user.module.cards.data.CardEntity;
 import com.jinggan.library.base.BaseDataSourse;
@@ -23,7 +22,7 @@ import retrofit2.Call;
 
 public class CardRepo implements BaseDataSourse {
 
-    private Call<ResponeEntity<List<CardEntity>>> cardsCall;
+    private Call<ResponseEntity<List<CardEntity>>> cardsCall;
     private static CardRepo instance;
 
     public static CardRepo getInstance() {
@@ -37,9 +36,9 @@ public class CardRepo implements BaseDataSourse {
         callback.onReqStart();
         String url = "card/listByKey?pageSize=" + pageSize + "&pageCount=10&keywords=" + keywords+"&userNo="+ DataApplication.getInstance().getUserInfoEntity().getUserNo();
         cardsCall = RetrofitManager.getInstance().getService().queryCards(url);
-        cardsCall.enqueue(new RetrofitCallbackV2<ResponeEntity<List<CardEntity>>>() {
+        cardsCall.enqueue(new RetrofitCallbackV2<ResponseEntity<List<CardEntity>>>() {
             @Override
-            public void onSuccess(ResponeEntity<List<CardEntity>> data) {
+            public void onSuccess(ResponseEntity<List<CardEntity>> data) {
                 if (data.getCode() == 200) {
                     callback.onSuccess(data.getData());
                 } else {

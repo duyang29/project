@@ -1,10 +1,14 @@
 package com.easydear.user.module.cards;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -27,15 +31,8 @@ import butterknife.ButterKnife;
 
 public class CardListAdapter extends BaseRecyclerViewAdapter<CardEntity> {
 
-
     public CardListAdapter(Context context) {
         super(context);
-    }
-
-
-    @Override
-    public int getItemCount() {
-        return 4;
     }
 
     @Override
@@ -57,11 +54,19 @@ public class CardListAdapter extends BaseRecyclerViewAdapter<CardEntity> {
         viewHolder.ItemCardBusinessName.setText(mLists.get(position).getBusinessName());
         viewHolder.ItemCardBusinessDesc.setHint(mLists.get(position).getSimplyDescription());
         viewHolder.ItemCardLevel.setText(mLists.get(position).getVipLevel());
-        viewHolder.ItemCardCardSize.setText("你有卡卷 "+mLists.get(position).getCardSize()+" 张");
+        viewHolder.ItemCardCardSize.setText("你有卡卷 " + mLists.get(position).getCardSize() + " 张");
+
+        GradientDrawable drawable = (GradientDrawable) viewHolder.bgLayout.getBackground();
+        if (drawable != null) {
+            if (!TextUtils.isEmpty(mLists.get(position).getBackgroundColor())) {
+                drawable.setColor(Color.parseColor(mLists.get(position).getBackgroundColor()));
+            } else {
+                drawable.setColor(Color.parseColor("#888888"));
+            }
+        }
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-
         @BindView(R.id.ItemCards_Business_Logo)
         ImageView ItemCardsBusinessLogo;
         @BindView(R.id.ItemCard_Business_Name)
@@ -72,12 +77,12 @@ public class CardListAdapter extends BaseRecyclerViewAdapter<CardEntity> {
         TextView ItemCardLevel;
         @BindView(R.id.ItemCard_CardSize)
         TextView ItemCardCardSize;
+        @BindView(R.id.ItemCards_bg)
+        RelativeLayout bgLayout;
 
         public ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }
     }
-
-
 }

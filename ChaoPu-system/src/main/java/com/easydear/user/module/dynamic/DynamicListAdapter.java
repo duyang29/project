@@ -15,6 +15,7 @@ import com.easydear.user.R;
 import com.easydear.user.module.dynamic.data.DynamicEntity;
 import com.jinggan.library.ui.view.RoundedBitmapImageViewTarget;
 import com.jinggan.library.ui.widget.pullRefreshRecyler.BaseRecyclerViewAdapter;
+import com.jinggan.library.utils.ISkipActivityUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -64,6 +65,7 @@ public class DynamicListAdapter extends BaseRecyclerViewAdapter<DynamicEntity> {
             @Override
             public void onClick(View v) {
                 //TODO 跳转
+                ISkipActivityUtil.startIntent(mContent,DynamicDetailsActivity.class);
             }
         });
     }

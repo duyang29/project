@@ -49,7 +49,10 @@ public class MessageContentAdapter extends BaseRecyclerViewAdapter<MessageItemEn
         viewHolder.timeText.setText(itemEntity.getCreateTime());
         viewHolder.contentText.setText(itemEntity.getContent());
         viewHolder.titleTextView.setText(itemEntity.getBusinessName());
-        Glide.with(mContent).load(BuildConfig.DOMAIN + itemEntity.getLogo()).into(viewHolder.headView);
+        Glide.with(mContent).load(BuildConfig.DOMAIN + itemEntity.getLogo())
+                .placeholder(R.mipmap.default_head_img)
+                .error(R.mipmap.default_head_img)
+                .into(viewHolder.headView);
         viewHolder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
